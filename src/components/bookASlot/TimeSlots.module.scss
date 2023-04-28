@@ -1,0 +1,50 @@
+.number-of-hours {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+  justify-content: space-around;
+
+  @media screen and (min-width: 450px) {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.hours-label {
+  text-align: center;
+  margin-inline: 1rem;
+}
+
+.hours {
+  border: 2px solid var(--accent-400);
+  border-radius: 0.75rem;
+  padding: 0.5rem 1rem;
+  text-align: center;
+  margin-inline: 0.75rem;
+
+  @media screen and (min-width: 450px) {
+    margin-inline: 2rem;
+  }
+
+  & option {
+    background-color: var(--primary-400);
+    border: none;
+
+    &:hover,
+    &:focus {
+      background-color: var(--accent-400);
+    }
+  }
+}
+
+.grid {
+  display: grid;
+  padding: 0.5rem;
+  gap: 0.5rem;
+  grid-template-columns: repeat(3, 1fr);
+
+  @media screen and (min-width: 450px) {
+    padding: 1rem;
+    padding-top: 0.25rem;
+    gap: 0.75rem;
+  }
+}

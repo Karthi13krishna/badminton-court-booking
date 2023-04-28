@@ -1,0 +1,26 @@
+@use '../../styles/app.scss' as *;
+
+.slot-btn {
+  @include button-default;
+
+  padding: 1rem;
+  border-radius: 0.75rem;
+  font-size: 0.9rem;
+
+  &:disabled {
+    color: var(--disabled);
+    background-color: var(--primary-400);
+    cursor: not-allowed;
+
+    &:hover {
+      color: var(--disabled);
+      background-color: var(--primary-400);
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+    font-size: 1rem;
+    padding: 1rem 2rem;
+    border-radius: 1rem;
+  }
+}

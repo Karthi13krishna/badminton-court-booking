@@ -1,0 +1,30 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 2rem 1rem;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  font-style: italic;
+  text-align: center;
+}
+
+.links {
+  display: flex;
+  gap: 3rem;
+  justify-content: space-evenly;
+  list-style: none;
+}
+
+.link a {
+  color: var(--secondary-400);
+
+  &:hover,
+  &:focus-visible {
+    color: var(--accent-400);
+    transition: color 0.35s ease-in;
+  }
+}

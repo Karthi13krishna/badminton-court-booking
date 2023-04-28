@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 
 const SlotBooking = () => {
   let today = new Date(new Date().setHours(0, 0, 0));
-  today = new Date().getHours() <= 21 ? today : add(today, { days: 1 });
+  today = new Date().getHours() < 21 ? today : add(today, { days: 1 });
   const [date, setDate] = useState(today);
   const [selectedTimes, setSelectedTimes] = useState([]);
   const [numberOfHours, setNumberOfHours] = useState(1);

@@ -67,13 +67,23 @@ const SlotBooking = () => {
   );
   const confirmation = <Confirmation selectedTimes={selectedTimes} />;
 
-  const { steps, currentStepIndex, step, next, back, isFirstStep, isLastStep } =
-    useMultiStepForm([datePicker, timePicker, confirmation]);
+  const {
+    steps,
+    currentStepIndex,
+    step,
+    next,
+    back,
+    isFirstStep,
+    isLastStep,
+    goTo,
+  } = useMultiStepForm([datePicker, timePicker, confirmation]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (selectedTimes) {
-      console.log(selectedTimes);
+      console.log(selectedTimes); //add database logic here!
+      setSelectedTimes([]);
+      goTo(0);
     } else {
       console.log('Please select a time');
     }

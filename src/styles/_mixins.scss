@@ -1,0 +1,32 @@
+@mixin button-default {
+  background-color: var(--primary-500);
+  color: var(--secondary-400);
+  border: 0;
+  cursor: pointer;
+  font-weight: bold;
+
+  &:hover {
+    background-color: var(--primary-300);
+    transition: background-color 0.3s ease;
+  }
+
+  &.active {
+    background-color: var(--accent-400);
+    color: var(--primary-400);
+  }
+}
+
+@mixin input-default {
+  display: block;
+  border: 0;
+  background-color: var(--primary-300);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  margin: 1rem;
+}
+
+@mixin card {
+  border-radius: 0.5rem;
+  padding: 2rem;
+  box-shadow: 0 0 15px 10px var(--primary-500);
+}

@@ -1,11 +1,11 @@
-@use '../../styles/app.scss' as *;
+@use '../../styles/mixins.scss' as *;
 
 .slot-btn {
   @include button-default;
 
   padding: 1rem;
   border-radius: 0.75rem;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
 
   &:disabled {
     color: var(--disabled);

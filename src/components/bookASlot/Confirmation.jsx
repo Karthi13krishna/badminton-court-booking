@@ -8,9 +8,9 @@ const Confirmation = ({ selectedTimes }) => {
   const times = selectedTimes.sort((a, b) => compareAsc(a, b));
   const dateTime = times.map((time) => {
     return (
-      <div className={styles.slots} key={time}>
+      <p className={styles.slots} key={time}>
         {format(time, 'PPPPp')}
-      </div>
+      </p>
     );
   });
 
@@ -22,7 +22,7 @@ const Confirmation = ({ selectedTimes }) => {
       <h3 className={styles.heading}>
         {selectedTimes.length
           ? 'Please confirm the slots you have selected'
-          : 'Please select a date!'}
+          : 'Please select a time!'}
       </h3>
       <div>{selectedTimes.length ? dateTime : null}</div>
     </div>

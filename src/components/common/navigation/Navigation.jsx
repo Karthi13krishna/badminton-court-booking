@@ -14,7 +14,7 @@ const Navigation = () => {
 
   return (
     <Container>
-      <header className={styles.nav}>
+      <header className={styles.header}>
         <Link to="/" className={styles.logo}>
           <div>DKS</div>
         </Link>
@@ -25,9 +25,9 @@ const Navigation = () => {
             <HiOutlineMenu className={styles.menu} />
           )}
         </button>
-        <nav>
+        <nav className={`${styles['nav']} ${isNavOpen && styles.visible}`}>
           <ul
-            className={`${styles['nav__list']} ${isNavOpen && styles.visible}`}
+            className={styles['nav__list']}
             onClick={() => setIsNavOpen(false)}
           >
             <li className={styles['nav__item']}>
@@ -70,9 +70,11 @@ const Navigation = () => {
                 About
               </NavLink>
             </li>
+            <li className={styles['nav__item']}>
+              <AuthButton />
+            </li>
           </ul>
         </nav>
-        {/* <AuthButton /> */}
       </header>
     </Container>
   );

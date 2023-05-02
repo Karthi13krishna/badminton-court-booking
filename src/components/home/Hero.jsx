@@ -1,9 +1,18 @@
 import React from 'react';
 import Container from '../common/Container';
 import styles from './Hero.module.scss';
-import img from '../../assets/hero.png';
+// import heroWebp from '../../assets/hero.webp';
+// import heroWebp2x from '../../assets/hero@2x.webp';
+import heroPng from '../../assets/hero.png';
+import heroPng2x from '../../assets/hero@2x.png';
+// import waves from '../../assets/waves.png';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const navigate = useNavigate();
+  const ctaHandler = () => {
+    navigate('/membership');
+  };
   return (
     <div className={styles.hero}>
       <Container>
@@ -19,12 +28,24 @@ const Hero = () => {
               elevate your game. Join us today and take your badminton journey
               to new heights.
             </p>
+            <button onClick={ctaHandler} class={styles['hero__cta']}>
+              Become a Member
+            </button>
           </div>
-          <img
-            src={img}
-            alt="A man and a woman standing with a badminton racket in their hand"
-            className={styles['hero__img']}
-          />
+          <picture>
+            {/* <source
+              type="image/webp"
+              srcSet={`${heroWebp} 1x, ${heroWebp2x} 2x`}
+            /> */}
+            <source
+              type="image/png"
+              srcSet={`${heroPng} 1x, ${heroPng2x} 2x`}
+            />
+            <img
+              alt="A man and a woman standing with a badminton racket in their hand"
+              className={styles['hero__img']}
+            />
+          </picture>
         </div>
       </Container>
     </div>

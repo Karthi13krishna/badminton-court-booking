@@ -1,9 +1,25 @@
+@use '../../../styles/mixins' as *;
+
+.container {
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0;
   margin-top: 0.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+  background-color: var(--primary-400);
+
+  &.scroll {
+    @include card;
+  }
 }
 
 .nav-toggle {
@@ -55,6 +71,7 @@
     visibility: visible;
     position: inherit;
     background-color: transparent;
+    backdrop-filter: none;
     transform: translateX(0%);
   }
 }
@@ -77,10 +94,15 @@
   }
 }
 
+.nav__item {
+  line-height: 0;
+}
+
 .nav__item a {
   color: var(--secondary-400);
   text-transform: uppercase;
   text-align: left;
+  text-decoration: none;
 
   &.active {
     color: var(--accent-400);

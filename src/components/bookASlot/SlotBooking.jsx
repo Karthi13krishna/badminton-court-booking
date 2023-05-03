@@ -1,51 +1,42 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import Calendar from 'react-calendar';
-import { add, isSameHour } from 'date-fns';
+import { add } from 'date-fns';
 import { HiArrowNarrowRight, HiArrowNarrowLeft } from 'react-icons/hi';
 import { FiCheck } from 'react-icons/fi';
 
-import TimeSlots from './TimeSlots';
 import { useMultiStepForm } from '../../hooks/useMultiStepForm';
+import { useSlots } from '../../contexts/SlotContext';
+import { useAuth } from '../../contexts/AuthContext';
 
 import '../../styles/react-calendar.scss';
 import styles from './SlotBooking.module.scss';
+import TimeSlots from './TimeSlots';
 import Confirmation from './Confirmation';
-import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const SlotBooking = () => {
-  let today = new Date(new Date().setHours(0, 0, 0));
-  today = new Date().getHours() < 21 ? today : add(today, { days: 1 });
-  const [date, setDate] = useState(today);
-  const [selectedTimes, setSelectedTimes] = useState([]);
-  const [numberOfHours, setNumberOfHours] = useState(1);
+  const { currentUser } = useAuth();
+  const {
+    today,
+    date,
+    setDate,
+    selectedSlots,
+    setSelectedSlots,
+    numberOfHours,
+    formStepNumber,
+    setFormStepNumber,
+  } = useSlots();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setSelectedTimes([]);
-  }, [date]);
+    setSelectedSlots([]);
+  }, [date, setSelectedSlots]);
 
   useEffect(() => {
-    if (numberOfHours < selectedTimes.length) {
-      setSelectedTimes([]);
+    if (numberOfHours < selectedSlots.length) {
+      setSelectedSlots([]);
     }
-  }, [numberOfHours, selectedTimes.length]);
-
-  const timeChangeHandler = (slot) => {
-    const duplicateSlot = selectedTimes.find((time) => isSameHour(time, slot));
-
-    if (duplicateSlot) {
-      setSelectedTimes((prevSelectedTimes) => {
-        return prevSelectedTimes.filter((time) => !isSameHour(time, slot));
-      });
-    } else {
-      setSelectedTimes((prevSelectedTimes) => {
-        prevSelectedTimes.push(slot);
-        if (prevSelectedTimes.length > numberOfHours) {
-          prevSelectedTimes.shift();
-        }
-        return prevSelectedTimes;
-      });
-    }
-  };
+  }, [numberOfHours, selectedSlots.length, setSelectedSlots]);
 
   const datePicker = (
     <Calendar
@@ -56,16 +47,8 @@ const SlotBooking = () => {
       value={date}
     />
   );
-  const timePicker = (
-    <TimeSlots
-      onTimeChange={timeChangeHandler}
-      date={date}
-      selectedTimes={selectedTimes}
-      setNumberOfHours={setNumberOfHours}
-      numberOfHours={numberOfHours}
-    />
-  );
-  const confirmation = <Confirmation selectedTimes={selectedTimes} />;
+  const timePicker = <TimeSlots />;
+  const confirmation = <Confirmation selectedTimes={selectedSlots} />;
 
   const {
     steps,
@@ -78,12 +61,27 @@ const SlotBooking = () => {
     goTo,
   } = useMultiStepForm([datePicker, timePicker, confirmation]);
 
+  useEffect(() => {
+    setFormStepNumber(currentStepIndex);
+  }, [currentStepIndex, setFormStepNumber]);
+
   const submitHandler = (e) => {
     e.preventDefault();
-    if (selectedTimes) {
-      console.log(selectedTimes); //add database logic here!
-      setSelectedTimes([]);
-      goTo(0);
+    if (selectedSlots) {
+      if (currentUser) {
+        console.log(selectedSlots); //add database logic here!
+        setSelectedSlots([]);
+        setDate(today);
+        goTo(0);
+      } else {
+        navigate('/login', {
+          state: {
+            from: '/slot',
+            warning: 'Please login before booking!',
+            step: formStepNumber,
+          },
+        });
+      }
     } else {
       console.log('Please select a time');
     }
@@ -93,7 +91,7 @@ const SlotBooking = () => {
     <>
       <form onSubmit={submitHandler} className={styles.form} id="slots">
         <div className={styles['step-number']}>
-          {currentStepIndex + 1}/{steps.length}
+          {formStepNumber + 1}/{steps.length}
         </div>
         <div className={styles.step}>{step}</div>
         <div className={styles['form-buttons']}>
@@ -121,7 +119,7 @@ const SlotBooking = () => {
             <button
               type="submit"
               className={styles['form-nav-btns']}
-              disabled={selectedTimes.length ? false : true}
+              disabled={selectedSlots.length ? false : true}
             >
               <FiCheck className={`${styles.arrow} ${styles['arrow-next']}`} />
             </button>

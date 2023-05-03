@@ -28,11 +28,11 @@ const Hero = () => {
               elevate your game. Join us today and take your badminton journey
               to new heights.
             </p>
-            <button onClick={ctaHandler} class={styles['hero__cta']}>
+            <button onClick={ctaHandler} className={styles['hero__cta']}>
               Become a Member
             </button>
           </div>
-          <picture>
+          <picture className={styles.pic}>
             {/* <source
               type="image/webp"
               srcSet={`${heroWebp} 1x, ${heroWebp2x} 2x`}

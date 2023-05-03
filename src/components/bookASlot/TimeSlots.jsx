@@ -2,19 +2,16 @@ import React, { useState } from 'react';
 import { add, eachHourOfInterval, isToday } from 'date-fns';
 import styles from './TimeSlots.module.scss';
 import SlotsButton from './SlotButton';
+import { useSlots } from '../../contexts/SlotContext';
 
-const TimeSlots = ({
-  onTimeChange,
-  date,
-  selectedTimes,
-  setNumberOfHours,
-  numberOfHours,
-}) => {
+const TimeSlots = () => {
+  const { date, setNumberOfHours, numberOfHours, slotChangeHandler } =
+    useSlots();
   const [activeSlot, setActiveSlot] = useState(date);
 
   const activeSlotHandler = (slot) => {
     setActiveSlot(slot);
-    onTimeChange(slot);
+    slotChangeHandler(slot, numberOfHours);
   };
 
   const getTimes = () => {
@@ -36,7 +33,6 @@ const TimeSlots = ({
         key={time}
         onSelect={activeSlotHandler}
         activeSlot={activeSlot}
-        selectedTimes={selectedTimes}
       />
     );
   });

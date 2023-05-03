@@ -1,0 +1,17 @@
+@use '../../../styles/mixins' as *;
+
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.email {
+  margin: 2rem;
+}
+
+.btn {
+  @include button-default;
+  margin: 2rem;
+  padding: 1rem 2rem;
+}

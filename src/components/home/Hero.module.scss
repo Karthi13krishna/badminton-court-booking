@@ -19,7 +19,7 @@
   flex-direction: column;
   align-items: center;
   @media screen and (min-width: 800px) {
-    margin: 4rem 0;
+    margin: 3rem 0;
     align-items: flex-start;
   }
 }
@@ -54,14 +54,19 @@
 }
 
 .hero__img {
-  width: 100%;
+  // width: 100%;
+  width: 80%;
   object-fit: cover;
-  background-image: url(../../assets/circle-outline.png);
-  background-size: contain;
+  margin: 0 auto;
 
   @media screen and (min-width: 800px) {
     margin-top: 2rem;
   }
+}
+
+.pic {
+  background-image: url(../../assets/circle-outline.png);
+  background-size: cover;
 }
 
 .hero__cta {

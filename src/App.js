@@ -11,6 +11,7 @@ import SignIn from './components/common/auth/SignIn';
 import SignUp from './components/common/auth/SignUp';
 
 import './styles/app.scss';
+import Profile from './components/common/auth/Profile';
 
 const App = () => {
   return (
@@ -19,9 +20,10 @@ const App = () => {
       <main className="main">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/slot" element={<BookASlot />} />
           <Route element={<PrivateRoutes />}>
-            <Route path="/slot" element={<BookASlot />} />
             <Route path="/membership" element={<Membership />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
           <Route path="/about" element={<About />} />
           <Route path="/login" element={<SignIn />} />

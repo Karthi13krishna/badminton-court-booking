@@ -1,47 +1,32 @@
-import React, { useEffect, useState } from 'react';
-import { auth } from '../../../config/firebase';
-import { signOut } from 'firebase/auth';
+import React from 'react';
+import { BsPersonCircle } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../contexts/AuthContext';
 
 import styles from './AuthButton.module.scss';
 
 const AuthButton = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
-  useEffect(() => {
-    if (auth?.currentUser?.uid) {
-      setIsLoggedIn(true);
-    } else {
-      setIsLoggedIn(false);
-    }
-  });
+  const { currentUser } = useAuth();
 
   const signInHandler = () => {
     navigate('/login');
   };
 
-  const signOutHandler = async () => {
-    try {
-      await signOut(auth);
-      setIsLoggedIn(false);
-      navigate('/');
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const authHandler = async () => {
-    if (isLoggedIn) {
-      signOutHandler();
-    } else {
-      signInHandler();
-    }
+  const profileHandler = () => {
+    navigate('/profile');
   };
 
   return (
-    <button className={styles.btn} onClick={authHandler}>
-      {isLoggedIn ? 'Sign Out' : 'Sign In'}
-    </button>
+    <>
+      {currentUser ? (
+        <BsPersonCircle className={styles.profile} onClick={profileHandler} />
+      ) : (
+        <button className={styles.btn} onClick={signInHandler}>
+          Sign In
+        </button>
+      )}
+    </>
   );
 };
 

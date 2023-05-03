@@ -7,10 +7,21 @@
   // color: var(--accent-400);
   border: 2px solid var(--accent-400);
   border-radius: 0.5rem;
-  padding: 0.5rem 2rem;
+  padding: 1.5rem 2rem;
 
   &:hover {
     background-color: var(--accent-400);
     color: var(--primary-400);
+  }
+}
+
+.profile {
+  color: var(--secondary-400);
+  cursor: pointer;
+  font-size: 2.5rem;
+  margin: 0.4rem 0;
+
+  &:hover {
+    color: var(--accent-400);
   }
 }

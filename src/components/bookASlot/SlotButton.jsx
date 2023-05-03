@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import styles from './SlotButton.module.scss';
-import { format, compareAsc } from 'date-fns';
+import { format, isSameHour } from 'date-fns';
+import { useSlots } from '../../contexts/SlotContext';
 
-const SlotsButton = ({ selectedTimes, label, onSelect }) => {
+const SlotsButton = ({ label, onSelect }) => {
   const [isActive, setIsActive] = useState(false);
+  const { selectedSlots } = useSlots();
 
   useEffect(() => {
     const getSelectedTime = () => {
-      return selectedTimes.find((time) => compareAsc(time, label) === 0)
-        ? true
-        : false;
+      return selectedSlots.find((time) => isSameHour(time, label));
     };
 
     if (getSelectedTime()) {
@@ -17,7 +17,7 @@ const SlotsButton = ({ selectedTimes, label, onSelect }) => {
     } else {
       setIsActive(false);
     }
-  }, [label, selectedTimes]);
+  }, [label, selectedSlots]);
 
   const slotHandler = () => {
     onSelect(label);

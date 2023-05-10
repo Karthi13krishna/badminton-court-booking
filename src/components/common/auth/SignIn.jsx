@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../../../contexts/AuthContext';
+import Input from '../Input';
 
 import styles from './SignIn.module.scss';
 
@@ -25,38 +26,27 @@ const SignIn = () => {
       console.error(error);
     }
   };
+
   return (
     <div className={styles.card}>
       <h3 className={styles.warning}>{warning}</h3>
       <form onSubmit={signInHandler} className={styles.form}>
-        <div>
-          <label htmlFor="email" className={styles.label}>
-            Email
-          </label>
-          <input
-            id="email"
-            name="email"
-            required
-            className={styles.input}
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-          />
-        </div>
-        <div>
-          <label htmlFor="password" className={styles.label}>
-            Password
-          </label>
-          <input
-            id="password"
-            name="password"
-            className={styles.input}
-            type="password"
-            required
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-          />
-        </div>
+        <Input
+          label="Email"
+          id="email"
+          required={true}
+          type="email"
+          onInputChange={setEmail}
+          value={email}
+        />
+        <Input
+          label="Password"
+          id="password"
+          required={true}
+          type="password"
+          onInputChange={setPassword}
+          value={password}
+        />
         <button className={styles['submit-btn']}>Sign In</button>
       </form>
       <p className={styles['signup-link']}>

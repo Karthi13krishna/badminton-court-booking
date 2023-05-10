@@ -1,5 +1,4 @@
 import { useState, useContext, createContext } from 'react';
-
 import { add, isSameHour } from 'date-fns';
 
 const SlotContext = createContext();
@@ -11,7 +10,6 @@ export const SlotContextProvider = ({ children }) => {
   const [date, setDate] = useState(today);
   const [selectedSlots, setSelectedSlots] = useState([]);
   const [numberOfHours, setNumberOfHours] = useState(1);
-  const [formStepNumber, setFormStepNumber] = useState(0);
 
   //functions for handling slots
   const slotChangeHandler = (slot, numberOfHours) => {
@@ -41,8 +39,6 @@ export const SlotContextProvider = ({ children }) => {
     slotChangeHandler,
     numberOfHours,
     setNumberOfHours,
-    formStepNumber,
-    setFormStepNumber,
   };
 
   return <SlotContext.Provider value={value}>{children}</SlotContext.Provider>;

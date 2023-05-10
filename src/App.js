@@ -20,8 +20,8 @@ const App = () => {
       <main className="main">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/slot" element={<BookASlot />} />
           <Route element={<PrivateRoutes />}>
+            <Route path="/slot" element={<BookASlot />} />
             <Route path="/membership" element={<Membership />} />
             <Route path="/profile" element={<Profile />} />
           </Route>

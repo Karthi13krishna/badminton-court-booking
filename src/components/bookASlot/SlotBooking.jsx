@@ -13,6 +13,8 @@ import styles from './SlotBooking.module.scss';
 import TimeSlots from './TimeSlots';
 import Confirmation from './Confirmation';
 import { useNavigate } from 'react-router-dom';
+import { Timestamp, addDoc, collection } from 'firebase/firestore';
+import { db } from '../../config/firebase';
 
 const SlotBooking = () => {
   const { currentUser } = useAuth();
@@ -23,8 +25,7 @@ const SlotBooking = () => {
     selectedSlots,
     setSelectedSlots,
     numberOfHours,
-    formStepNumber,
-    setFormStepNumber,
+    setNumberOfHours,
   } = useSlots();
   const navigate = useNavigate();
 
@@ -50,38 +51,22 @@ const SlotBooking = () => {
   const timePicker = <TimeSlots />;
   const confirmation = <Confirmation selectedTimes={selectedSlots} />;
 
-  const {
-    steps,
-    currentStepIndex,
-    step,
-    next,
-    back,
-    isFirstStep,
-    isLastStep,
-    goTo,
-  } = useMultiStepForm([datePicker, timePicker, confirmation]);
-
-  useEffect(() => {
-    setFormStepNumber(currentStepIndex);
-  }, [currentStepIndex, setFormStepNumber]);
+  const { steps, currentStepIndex, step, next, back, isFirstStep, isLastStep } =
+    useMultiStepForm([datePicker, timePicker, confirmation]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     if (selectedSlots) {
-      if (currentUser) {
-        console.log(selectedSlots); //add database logic here!
-        setSelectedSlots([]);
-        setDate(today);
-        goTo(0);
-      } else {
-        navigate('/login', {
-          state: {
-            from: '/slot',
-            warning: 'Please login before booking!',
-            step: formStepNumber,
-          },
+      selectedSlots.forEach(async (slot) => {
+        await addDoc(collection(db, 'timeSlots'), {
+          uid: currentUser.uid,
+          slot: Timestamp.fromDate(slot),
         });
-      }
+      });
+      setSelectedSlots([]);
+      setDate(today);
+      setNumberOfHours(1);
+      navigate('/profile');
     } else {
       console.log('Please select a time');
     }
@@ -91,7 +76,7 @@ const SlotBooking = () => {
     <>
       <form onSubmit={submitHandler} className={styles.form} id="slots">
         <div className={styles['step-number']}>
-          {formStepNumber + 1}/{steps.length}
+          {currentStepIndex + 1}/{steps.length}
         </div>
         <div className={styles.step}>{step}</div>
         <div className={styles['form-buttons']}>
@@ -119,7 +104,7 @@ const SlotBooking = () => {
             <button
               type="submit"
               className={styles['form-nav-btns']}
-              disabled={selectedSlots.length ? false : true}
+              disabled={selectedSlots.length && currentUser ? false : true}
             >
               <FiCheck className={`${styles.arrow} ${styles['arrow-next']}`} />
             </button>

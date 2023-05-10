@@ -1,3 +1,5 @@
+@use '../../styles/mixins' as *;
+
 .confirmation {
   display: flex;
   flex-direction: column;
@@ -32,4 +34,11 @@
   margin-bottom: 0.5rem;
   text-align: center;
   font-size: 1.15rem;
+  list-style: none;
+}
+
+.modal-btn {
+  @include button-accent;
+  padding: 0.75rem 2rem;
+  border-radius: 0.75rem;
 }

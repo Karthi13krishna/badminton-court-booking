@@ -4,16 +4,18 @@ import styles from './Confirmation.module.scss';
 import { compareAsc, format } from 'date-fns';
 import { BsCalendar2Check } from 'react-icons/bs';
 
+import { useAuth } from '../../contexts/AuthContext';
 import { useSlots } from '../../contexts/SlotContext';
 
 const Confirmation = () => {
+  const { currentUser } = useAuth();
   const { selectedSlots } = useSlots();
   const times = selectedSlots.sort((a, b) => compareAsc(a, b));
   const dateTime = times.map((time) => {
     return (
-      <p className={styles.slots} key={time}>
+      <li className={styles.slots} key={time}>
         {format(time, 'PPPPp')}
-      </p>
+      </li>
     );
   });
 
@@ -23,11 +25,13 @@ const Confirmation = () => {
         <BsCalendar2Check className={styles['calendar-icon']} />
       </div>
       <h3 className={styles.heading}>
-        {selectedSlots.length
-          ? 'Please confirm the slots you have selected'
-          : 'Please select a time!'}
+        {!selectedSlots.length
+          ? 'Please select a time!'
+          : !currentUser
+          ? 'Please Login before confirming!'
+          : 'Please confirm the slots you have selected'}
       </h3>
-      <div>{selectedSlots.length ? dateTime : null}</div>
+      {selectedSlots.length && currentUser ? <ul>{dateTime}</ul> : null}
     </div>
   );
 };

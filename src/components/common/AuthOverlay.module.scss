@@ -1,0 +1,32 @@
+@use '../../styles/mixins' as *;
+
+.backdrop {
+  display: grid;
+  place-items: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  inset: 0;
+  width: auto;
+  z-index: 9998;
+  backdrop-filter: blur(0.5rem);
+}
+
+.modal {
+  z-index: 9999;
+  margin: auto;
+  width: 50%;
+
+  & > * {
+    margin: 0;
+    box-shadow: none;
+  }
+}
+
+.close-btn {
+  @include button-default;
+  position: fixed;
+  right: 2rem;
+  top: 2rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.2rem;
+}

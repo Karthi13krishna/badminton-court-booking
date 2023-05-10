@@ -1,54 +1,76 @@
 import React from 'react';
 import { useState } from 'react';
-import { auth } from '../../../config/firebase';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../contexts/AuthContext';
 
 import styles from './SignUp.module.scss';
+import { doc, setDoc } from 'firebase/firestore';
+import { db } from '../../../config/firebase';
+import Input from '../Input';
+import { updateProfile } from 'firebase/auth';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const { createUser } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const { from } = location.state ? location.state : { from: '/profile' };
 
   const signUpHandler = async (e) => {
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const { user } = await createUser(email, password, firstName, lastName);
+      await updateProfile(user, { displayName: `${firstName} ${lastName}` });
+      await setDoc(doc(db, 'users', user.uid), {
+        email,
+        firstName,
+        lastName,
+        isAdmin: false,
+        isMember: false,
+        uid: user.uid,
+      });
+      navigate(from);
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <div className={styles.card}>
       <form onSubmit={signUpHandler} className={styles.form}>
-        <div>
-          <label htmlFor="email" className={styles.label}>
-            Email
-          </label>
-          <input
-            className={styles.input}
-            id="email"
-            name="email"
-            required
-            type="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-          />
-        </div>
-        <div>
-          <label htmlFor="password" className={styles.label}>
-            Password
-          </label>
-          <input
-            className={styles.input}
-            id="password"
-            name="password"
-            required
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-          />
-        </div>
+        <Input
+          label="First Name"
+          id="firstName"
+          required={true}
+          onInputChange={setFirstName}
+          value={firstName}
+        />
+        <Input
+          label="Last Name"
+          id="lastName"
+          required={true}
+          onInputChange={setLastName}
+          value={lastName}
+        />
+        <Input
+          label="Email"
+          id="email"
+          required={true}
+          type="email"
+          onInputChange={setEmail}
+          value={email}
+        />
+        <Input
+          label="Password"
+          id="password"
+          required={true}
+          type="password"
+          onInputChange={setPassword}
+          value={password}
+        />
         <button className={styles['submit-btn']}>Sign Up</button>
       </form>
       <p className={styles['signup-link']}>

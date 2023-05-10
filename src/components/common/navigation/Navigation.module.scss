@@ -14,7 +14,7 @@
   margin-top: 0.5rem;
   position: sticky;
   top: 0;
-  z-index: 9999;
+  z-index: 9997;
   background-color: var(--primary-400);
 
   &.scroll {
@@ -28,7 +28,7 @@
   outline: 0;
   margin-inline-start: auto;
   padding: 0;
-  z-index: 9999;
+  z-index: 9997;
 
   @media screen and (min-width: 800px) {
     display: none;

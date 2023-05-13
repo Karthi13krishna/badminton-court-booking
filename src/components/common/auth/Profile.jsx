@@ -50,6 +50,7 @@ const Profile = () => {
   };
 
   const displaySlots = slotList.map((slot) => {
+    if (slot.timeStamp < new Date()) return null;
     return (
       <p className={styles.email} key={slot.id}>
         {format(slot.timeStamp, 'PPPPp')}

@@ -16,8 +16,8 @@
 
 .profile {
   color: var(--secondary-400);
-  cursor: pointer;
   font-size: 2.5rem !important;
+  cursor: pointer;
   margin: 0.4rem 0;
 
   &.active {
@@ -27,4 +27,11 @@
   &:hover {
     color: var(--accent-400);
   }
+}
+
+.photo-url {
+  border-radius: 100%;
+  width: 2.5rem;
+  cursor: pointer;
+  margin: 0.4rem 0;
 }

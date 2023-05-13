@@ -3,3 +3,27 @@
 .features {
   @include card;
 }
+
+.features-section {
+  margin: 3rem auto;
+  @media screen and (min-width: 500px) {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+}
+
+.feature__title {
+  font-size: 1.75rem;
+}
+
+.feature__image {
+  width: 90%;
+  max-width: 30rem;
+  border-radius: 1rem;
+}

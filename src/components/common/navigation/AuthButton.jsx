@@ -24,7 +24,15 @@ const AuthButton = () => {
           }}
           to="/profile"
         >
-          <BsPersonCircle />
+          {currentUser.photoURL ? (
+            <img
+              className={styles['photo-url']}
+              src={currentUser.photoURL}
+              alt="profile"
+            />
+          ) : (
+            <BsPersonCircle />
+          )}
         </NavLink>
       ) : (
         <button className={styles.btn} onClick={signInHandler}>

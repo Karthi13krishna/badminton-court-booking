@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { add, eachHourOfInterval, isToday } from 'date-fns';
+import { MoonLoader } from 'react-spinners';
 import styles from './TimeSlots.module.scss';
 import SlotsButton from './SlotButton';
 import { useSlots } from '../../contexts/SlotContext';
@@ -17,6 +18,7 @@ const TimeSlots = () => {
     useSlots();
   const [activeSlot, setActiveSlot] = useState(date);
   const [disabledSlots, setDisabledSlots] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const start = isToday(date)
     ? add(new Date().setMinutes(0, 0), { hours: 1 })
@@ -42,6 +44,7 @@ const TimeSlots = () => {
         });
         setDisabledSlots(slotArr);
       });
+      setLoading(false);
     });
     return unsubscribe;
   }, []);
@@ -62,6 +65,13 @@ const TimeSlots = () => {
       />
     );
   });
+
+  if (loading)
+    return (
+      <div className={styles.loader}>
+        <MoonLoader color="#42ffad" />
+      </div>
+    );
 
   return (
     <>

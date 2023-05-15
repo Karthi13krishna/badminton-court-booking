@@ -1,5 +1,11 @@
 @use '../../styles/mixins' as *;
 
+.container {
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
 .hero__container {
   display: grid;
   // grid-template-columns: 1fr 1fr;

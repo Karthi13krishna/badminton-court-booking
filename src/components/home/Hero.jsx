@@ -1,5 +1,4 @@
 import React from 'react';
-import Container from '../common/Container';
 import styles from './Hero.module.scss';
 // import heroWebp from '../../assets/hero.webp';
 // import heroWebp2x from '../../assets/hero@2x.webp';
@@ -15,7 +14,7 @@ const Hero = () => {
   };
   return (
     <div className={styles.hero}>
-      <Container>
+      <div className={styles.container}>
         <div className={styles['hero__container']}>
           <div className={styles['hero__text']}>
             <h1 className={styles['hero__heading']}>
@@ -47,7 +46,7 @@ const Hero = () => {
             />
           </picture>
         </div>
-      </Container>
+      </div>
     </div>
   );
 };

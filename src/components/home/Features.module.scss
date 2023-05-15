@@ -1,20 +1,52 @@
 @use '../../styles/mixins' as *;
 
-.features {
+.features-container {
   @include card;
+  width: 90%;
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  font-weight: bold;
+  padding: 0 1rem;
+  @media screen and (min-width: 500px) {
+    gap: min(10rem, 20%);
+  }
+}
+
+.features-hook {
+  margin: 2rem auto;
+}
+
+.header {
+  margin: 5rem auto;
+  text-align: center;
+}
+
+.icon {
+  width: 60px;
+  margin: 0 auto 1rem;
+}
+
+.features__heading {
+  font-size: 3rem;
 }
 
 .features-section {
   margin: 3rem auto;
   @media screen and (min-width: 500px) {
-    display: flex;
-    gap: 2rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
     align-items: center;
     justify-content: space-between;
-  }
 
-  &:nth-child(even) {
-    flex-direction: row-reverse;
+    &:nth-of-type(even) .feature__content {
+      order: 2;
+    }
   }
 }
 

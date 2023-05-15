@@ -1,4 +1,9 @@
 import React from 'react';
+
+import spacious from '../../assets/spacious.png';
+import equipments from '../../assets/equipments.png';
+import family from '../../assets/family.png';
+
 import Container from '../common/Container';
 import styles from './Features.module.scss';
 
@@ -8,13 +13,30 @@ import shuttlecock from '../../assets/shuttlecock.jpg';
 
 const Features = () => {
   return (
-    <>
+    <section>
+      <div className={styles['features-container']}>
+        <div className={styles['features-hook']}>
+          <img className={styles.icon} src={spacious} alt="" /> Spacious
+        </div>
+        <div className={styles['features-hook']}>
+          <img className={styles.icon} src={family} alt="" /> Family-Friendly
+        </div>
+        <div className={styles['features-hook']}>
+          <img className={styles.icon} src={equipments} alt="" /> Well-equipped
+        </div>
+      </div>
       <Container>
-        <div className={styles.features}></div>
-      </Container>
-      <Container>
-        <section className={styles['features-section']}>
-          <div>
+        <header className={styles.header}>
+          <h2 className={styles['features__heading']}>
+            Ace Your Game with Our Top Features
+          </h2>
+          <p>
+            See why our badminton court is the perfect place for players who
+            demand the best.
+          </p>
+        </header>
+        <article className={styles['features-section']}>
+          <div className={styles['feature__content']}>
             <h3 className={styles['feature__title']}>
               State-of-the-Art Badminton Facility
             </h3>
@@ -28,9 +50,9 @@ const Features = () => {
             alt="two rackets in a badminton court"
             src={court}
           />
-        </section>
-        <section className={styles['features-section']}>
-          <div>
+        </article>
+        <article className={styles['features-section']}>
+          <div className={styles['feature__content']}>
             <h3 className={styles['feature__title']}>
               Future Champions Program
             </h3>
@@ -44,9 +66,9 @@ const Features = () => {
             alt="three happy children holding a racket"
             src={children}
           />
-        </section>
-        <section className={styles['features-section']}>
-          <div>
+        </article>
+        <article className={styles['features-section']}>
+          <div className={styles['feature__content']}>
             <h3 className={styles['feature__title']}>
               Flexible Booking Options
             </h3>
@@ -61,9 +83,9 @@ const Features = () => {
             alt="rackets in a badminton court"
             src={shuttlecock}
           />
-        </section>
+        </article>
       </Container>
-    </>
+    </section>
   );
 };
 

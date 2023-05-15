@@ -3,6 +3,7 @@
 .btn {
   @include button-default;
 
+  text-transform: uppercase;
   background-color: var(--primary-400);
   border: 2px solid var(--accent-400);
   border-radius: 0.5rem;

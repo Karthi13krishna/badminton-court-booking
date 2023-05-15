@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom';
 
 import Home from './pages/Home';
-import BookASlot from './pages/BookASlot';
+import BookSlots from './pages/BookSlots';
 import Membership from './pages/Membership';
 import About from './pages/About';
 import Footer from './components/common/footer/Footer';
@@ -21,7 +21,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route element={<PrivateRoutes />}>
-            <Route path="/slot" element={<BookASlot />} />
+            <Route path="/slot" element={<BookSlots />} />
             <Route path="/membership" element={<Membership />} />
             <Route path="/profile" element={<Profile />} />
           </Route>

@@ -1,10 +1,10 @@
 import React from 'react';
-import SlotBooking from '../components/bookASlot/SlotBooking';
+import SlotBooking from '../components/bookSlots/SlotBooking';
 import Container from '../components/common/Container';
 
-import styles from './BookASlot.module.scss';
+import styles from './BookSlots.module.scss';
 
-const BookASlot = () => {
+const BookSlots = () => {
   return (
     <Container>
       <div className={styles.form}>
@@ -14,4 +14,4 @@ const BookASlot = () => {
   );
 };
 
-export default BookASlot;
+export default BookSlots;

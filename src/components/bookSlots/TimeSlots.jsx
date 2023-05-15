@@ -47,6 +47,7 @@ const TimeSlots = () => {
       setLoading(false);
     });
     return unsubscribe;
+    // eslint-disable-next-line
   }, []);
 
   const activeSlotHandler = (slot) => {

@@ -42,7 +42,7 @@ const Navigation = () => {
                 return isActive ? styles.active : '';
               }}
             >
-              Book a Slot
+              Book Slots
             </NavLink>
           </li>
           <li className={styles['nav__item']}>

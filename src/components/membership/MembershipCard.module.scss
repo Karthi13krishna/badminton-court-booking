@@ -1,0 +1,18 @@
+@use '../../styles/mixins' as *;
+
+.card {
+  @include card;
+  display: flex;
+  flex-direction: column;
+}
+
+.button {
+  @include button-accent;
+  padding: 1rem 2rem;
+  margin: 1rem auto;
+}
+
+.package-name {
+  text-align: center;
+  margin-bottom: 0.5rem;
+}

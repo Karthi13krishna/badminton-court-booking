@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { AuthContextProvider } from './contexts/AuthContext';
 import { SlotContextProvider } from './contexts/SlotContext';
@@ -12,9 +11,7 @@ root.render(
     <AuthContextProvider>
       <SlotContextProvider>
         <ThemeContextProvider>
-          <BrowserRouter>
-            <App />
-          </BrowserRouter>
+          <App />
         </ThemeContextProvider>
       </SlotContextProvider>
     </AuthContextProvider>

@@ -18,15 +18,33 @@ const SignIn = () => {
     : { from: '/profile', warning: null };
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [emailIsValid, setEmailIsValid] = useState(false);
+  const [passwordIsValid, setPasswordIsValid] = useState(false);
   const { loginUser, loginWithGoogle } = useAuth();
+
+  const emailValidation = () => {
+    if (email.trim() !== '') {
+      setEmailIsValid(true);
+    }
+  };
+  const passwordValidation = () => {
+    if (password.trim() !== '') {
+      setPasswordIsValid(true);
+    }
+  };
 
   const signInHandler = async (e) => {
     e.preventDefault();
+    if (!passwordIsValid || !emailIsValid) {
+      throw new Error('Please enter a valid email and password');
+    }
     try {
       await loginUser(email, password);
       navigate(from);
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      setError(err);
+      console.error(err);
     }
   };
 
@@ -62,6 +80,7 @@ const SignIn = () => {
           type="email"
           onInputChange={setEmail}
           value={email}
+          error={error}
         />
         <Input
           label="Password"
@@ -81,6 +100,7 @@ const SignIn = () => {
             <ImGoogle /> Sign in With Google
           </button>
         </div>
+        {error && <p>Username or Password Invalid</p>}
       </form>
       <p className={styles['signup-link']}>
         Not a User? <Link to="/register">Register now!</Link>

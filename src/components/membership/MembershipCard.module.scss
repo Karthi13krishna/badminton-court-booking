@@ -4,6 +4,18 @@
   @include card;
   display: flex;
   flex-direction: column;
+  align-self: stretch;
+  justify-content: space-around;
+  transition: all 0.3s ease-out;
+
+  &:hover {
+    border: 2px solid var(--accent-400);
+    transform: scale(105%);
+    transition: transform 0.3s ease-in;
+    @media screen and (min-width: 700px) {
+      transform: scale(110%);
+    }
+  }
 }
 
 .button {
@@ -15,4 +27,44 @@
 .package-name {
   text-align: center;
   margin-bottom: 0.5rem;
+}
+
+.pricing-block {
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--accent-400);
+  display: flex;
+  gap: 0.25rem;
+  border-bottom: 1px solid var(--secondary-700);
+  .discount {
+    text-decoration: line-through;
+    color: var(--secondary-700);
+    font-size: 2rem;
+    align-self: flex-start;
+    padding-top: 0.75rem;
+  }
+  .dollar {
+    font-size: 2rem;
+    align-self: flex-start;
+    padding-top: 0.75rem;
+  }
+  .month {
+    font-size: 2rem;
+    align-self: flex-end;
+    padding-bottom: 1rem;
+  }
+}
+
+.list {
+  padding-left: 0.75rem;
+}
+
+.list-item {
+  list-style: none;
+
+  &::before {
+    content: '✓';
+    color: var(--accent-400);
+    margin-right: 0.5rem;
+  }
 }

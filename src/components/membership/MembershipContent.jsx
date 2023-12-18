@@ -5,6 +5,14 @@ import styles from './MembershipContent.module.scss';
 import membership from '../../assets/membership.jpg';
 
 const MembershipContent = () => {
+  const monthlyFeatures = ['Discounts', 'Priority Booking', 'Bonus Sessions'];
+  const annualFeatures = [
+    'Discounts',
+    'Priority Booking',
+    'Bonus Sessions',
+    'Early Access',
+    'Exclusive Events',
+  ];
   return (
     <Container>
       <div>
@@ -14,11 +22,20 @@ const MembershipContent = () => {
           transparent and affordable membership.
         </p>
         <div className={styles.cards}>
-          <MembershipCard />
-          <MembershipCard />
+          <MembershipCard
+            package="Monthly Subscription"
+            price="10"
+            features={monthlyFeatures}
+          />
+          <MembershipCard
+            package="Annual Subscription"
+            price="8"
+            discount="10"
+            features={annualFeatures}
+          />
         </div>
       </div>
-      <div className={styles.flex}>
+      <article className={styles.article}>
         <div>
           <h2 className={styles.heading}>
             Experience Unlimited Badminton with our Exclusive Membership
@@ -36,7 +53,7 @@ const MembershipContent = () => {
           src={membership}
           alt="a player hitting a jump smash"
         />
-      </div>
+      </article>
     </Container>
   );
 };

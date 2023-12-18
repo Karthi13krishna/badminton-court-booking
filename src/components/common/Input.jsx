@@ -8,7 +8,7 @@ const Input = (props) => {
         {props.label}
       </label>
       <input
-        className={styles.input}
+        className={`${styles.input} ${styles[props.className]}`}
         id={props.id}
         name={props.id}
         required={props.required || false}

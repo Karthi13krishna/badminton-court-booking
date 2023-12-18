@@ -19,23 +19,25 @@ const SignIn = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [emailIsValid, setEmailIsValid] = useState(false);
-  const [passwordIsValid, setPasswordIsValid] = useState(false);
+  const [emailIsValid, setEmailIsValid] = useState(true);
+  const [passwordIsValid, setPasswordIsValid] = useState(true);
   const { loginUser, loginWithGoogle } = useAuth();
 
   const emailValidation = () => {
-    if (email.trim() !== '') {
+    if (email.trim() !== '' && email.includes('@') && !error) {
       setEmailIsValid(true);
     }
   };
   const passwordValidation = () => {
-    if (password.trim() !== '') {
+    if (password.trim() !== '' && !error) {
       setPasswordIsValid(true);
     }
   };
 
   const signInHandler = async (e) => {
     e.preventDefault();
+    emailValidation();
+    passwordValidation();
     if (!passwordIsValid || !emailIsValid) {
       throw new Error('Please enter a valid email and password');
     }
@@ -44,6 +46,7 @@ const SignIn = () => {
       navigate(from);
     } catch (err) {
       setError(err);
+
       console.error(err);
     }
   };
@@ -73,8 +76,12 @@ const SignIn = () => {
     <div className={styles.card}>
       <h3 className={styles.warning}>{warning}</h3>
       <form onSubmit={signInHandler} className={styles.form}>
+        {error && (
+          <p className={styles['error-text']}>Username or Password Invalid</p>
+        )}
         <Input
           label="Email"
+          className={`${!error ? '' : 'error'}`}
           id="email"
           required={true}
           type="email"
@@ -84,6 +91,7 @@ const SignIn = () => {
         />
         <Input
           label="Password"
+          className={`${!error ? '' : 'error'}`}
           id="password"
           required={true}
           type="password"
@@ -100,7 +108,6 @@ const SignIn = () => {
             <ImGoogle /> Sign in With Google
           </button>
         </div>
-        {error && <p>Username or Password Invalid</p>}
       </form>
       <p className={styles['signup-link']}>
         Not a User? <Link to="/register">Register now!</Link>

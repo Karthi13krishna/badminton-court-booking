@@ -14,6 +14,7 @@ const SignUp = () => {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+  const [error, setError] = useState(null);
   const { createUser } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -35,14 +36,19 @@ const SignUp = () => {
       navigate(from);
     } catch (error) {
       console.error(error);
+      setError(error);
     }
   };
 
   return (
     <div className={styles.card}>
       <form onSubmit={signUpHandler} className={styles.form}>
+        {error && (
+          <p className={styles['error-text']}>Please enter valid data</p>
+        )}
         <Input
           label="First Name"
+          className={`${!error ? '' : 'error'}`}
           id="firstName"
           required={true}
           onInputChange={setFirstName}
@@ -50,6 +56,7 @@ const SignUp = () => {
         />
         <Input
           label="Last Name"
+          className={`${!error ? '' : 'error'}`}
           id="lastName"
           required={true}
           onInputChange={setLastName}
@@ -57,6 +64,7 @@ const SignUp = () => {
         />
         <Input
           label="Email"
+          className={`${!error ? '' : 'error'}`}
           id="email"
           required={true}
           type="email"
@@ -65,6 +73,7 @@ const SignUp = () => {
         />
         <Input
           label="Password"
+          className={`${!error ? '' : 'error'}`}
           id="password"
           required={true}
           type="password"

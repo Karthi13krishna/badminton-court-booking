@@ -1,0 +1,21 @@
+@use '../../styles/mixins' as *;
+
+.card {
+  @include card;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: space-evenly;
+}
+
+.date {
+  display: flex;
+  align-items: center;
+}
+
+.calendar-icon {
+  font-size: 1.5rem;
+  text-align: center;
+  color: var(--accent-400);
+  margin-right: 0.5rem;
+}

@@ -9,13 +9,16 @@ import {
 } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../../contexts/AuthContext';
-import { format } from 'date-fns';
 
 import styles from './Profile.module.scss';
 import Container from '../Container';
+import DisplaySlots from '../DisplaySlots';
+import { BsPersonCircle } from 'react-icons/bs';
+import { MoonLoader } from 'react-spinners';
 
 const Profile = () => {
   const [slotList, setSlotList] = useState([]);
+  const [loading, setLoading] = useState(true);
   const { currentUser, logoutUser } = useAuth();
   const navigate = useNavigate();
 
@@ -35,6 +38,7 @@ const Profile = () => {
         });
       });
       setSlotList(slotArr);
+      setLoading(false);
     });
 
     return unsubscribe;
@@ -51,21 +55,38 @@ const Profile = () => {
 
   const displaySlots = slotList.map((slot) => {
     if (slot.timeStamp < new Date()) return null;
-    return (
-      <p className={styles.email} key={slot.id}>
-        {format(slot.timeStamp, 'PPPPp')}
-      </p>
-    );
+    return <DisplaySlots key={slot.id} slot={slot} />;
   });
+
+  const bookings = loading ? (
+    <div className={styles.center}>
+      <MoonLoader color="#42ffad" />
+    </div>
+  ) : (
+    <div className={styles.grid}>{displaySlots}</div>
+  );
 
   return (
     <Container>
       <div className={styles.profile}>
-        <p className={styles.email}>{currentUser.displayName}</p>
-        <button className={styles.btn} onClick={signOutHandler}>
-          Sign Out
-        </button>
-        {displaySlots}
+        <div className={styles.account}>
+          {currentUser.photoURL ? (
+            <img
+              className={styles.photo}
+              src={currentUser.photoURL}
+              alt="profile"
+            />
+          ) : (
+            <BsPersonCircle className={styles.icon} />
+          )}
+          <div className={styles['account-info']}>
+            <p className={styles.name}>{currentUser.displayName}</p>
+            <button className={styles.btn} onClick={signOutHandler}>
+              Sign Out
+            </button>
+          </div>
+        </div>
+        {displaySlots && bookings}
       </div>
     </Container>
   );

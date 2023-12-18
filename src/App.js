@@ -1,8 +1,8 @@
 import {
   Route,
-  RouterProvider,
+  // RouterProvider,
   Routes,
-  createBrowserRouter,
+  // createBrowserRouter,
 } from 'react-router-dom';
 
 import Home from './pages/Home';
@@ -15,26 +15,27 @@ import PrivateRoutes from './components/common/navigation/PrivateRoutes';
 
 import './styles/app.scss';
 import Profile from './components/common/auth/Profile';
-import Root from './pages/Root';
-import { checkAuthLoader } from './util/auth';
+// import Root from './pages/Root';
+// import { checkAuthLoader } from './util/auth';
 import Navigation from './components/common/navigation/Navigation';
 import Footer from './components/common/footer/Footer';
+import RedirectRoutes from './components/common/navigation/RedirectRoutes';
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <Root />,
-    children: [
-      { index: true, element: <Home /> },
-      { path: 'membership', element: <Membership /> },
-      { path: 'slot', element: <BookSlots />, loader: checkAuthLoader },
-      { path: 'profile', element: <Profile />, loader: checkAuthLoader },
-      { path: 'about', element: <About /> },
-      { path: 'login', element: <SignIn /> },
-      { path: 'register', element: <SignUp /> },
-    ],
-  },
-]);
+// const router = createBrowserRouter([
+//   {
+//     path: '/',
+//     element: <Root />,
+//     children: [
+//       { index: true, element: <Home /> },
+//       { path: 'membership', element: <Membership /> },
+//       { path: 'slot', element: <BookSlots />, loader: checkAuthLoader },
+//       { path: 'profile', element: <Profile />, loader: checkAuthLoader },
+//       { path: 'about', element: <About /> },
+//       { path: 'login', element: <SignIn /> },
+//       { path: 'register', element: <SignUp /> },
+//     ],
+//   },
+// ]);
 
 const App = () => {
   return (
@@ -49,8 +50,10 @@ const App = () => {
             <Route path="/profile" element={<Profile />} />
           </Route>
           <Route path="/about" element={<About />} />
-          <Route path="/login" element={<SignIn />} />
-          <Route path="/register" element={<SignUp />} />
+          <Route element={<RedirectRoutes />}>
+            <Route path="/login" element={<SignIn />} />
+            <Route path="/register" element={<SignUp />} />
+          </Route>
         </Routes>
       </main>
       <Footer />

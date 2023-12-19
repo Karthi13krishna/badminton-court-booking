@@ -20,6 +20,7 @@ import Profile from './components/common/auth/Profile';
 import Navigation from './components/common/navigation/Navigation';
 import Footer from './components/common/footer/Footer';
 import RedirectRoutes from './components/common/navigation/RedirectRoutes';
+import Error from './pages/Error';
 
 // const router = createBrowserRouter([
 //   {
@@ -54,6 +55,7 @@ const App = () => {
             <Route path="/login" element={<SignIn />} />
             <Route path="/register" element={<SignUp />} />
           </Route>
+          <Route path="*" element={<Error />} />
         </Routes>
       </main>
       <Footer />

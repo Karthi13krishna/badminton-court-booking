@@ -1,0 +1,25 @@
+@use '../styles/mixins' as *;
+
+.grid {
+  display: grid;
+  margin: 5rem auto;
+  place-items: center;
+  gap: 1rem;
+}
+
+.heading {
+  font-size: 5rem;
+  color: var(--accent-400);
+}
+
+.subtext {
+  font-size: 2rem;
+}
+
+.button {
+  @include button-accent;
+  margin: 1rem auto;
+  border-radius: 1rem;
+  text-decoration: none;
+  padding: 1rem;
+}

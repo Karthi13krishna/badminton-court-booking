@@ -15,6 +15,7 @@ import Confirmation from './Confirmation';
 import { useNavigate } from 'react-router-dom';
 import { Timestamp, addDoc, collection } from 'firebase/firestore';
 import { db } from '../../config/firebase';
+import ProgressBar from '@ramonak/react-progress-bar';
 
 const SlotBooking = () => {
   const { currentUser } = useAuth();
@@ -74,10 +75,18 @@ const SlotBooking = () => {
 
   return (
     <>
+      <div className={styles.progress}>
+        <ProgressBar
+          completed={((currentStepIndex + 1) / steps.length).toFixed(2) * 100}
+          borderRadius="1rem"
+          bgColor="#42ffad"
+          baseBgColor="#252932"
+          height="0.25rem"
+          isLabelVisible={false}
+        />
+      </div>
       <form onSubmit={submitHandler} className={styles.form} id="slots">
-        <div className={styles['step-number']}>
-          {currentStepIndex + 1}/{steps.length}
-        </div>
+        <div className={styles['step-number']}></div>
         <div className={styles.step}>{step}</div>
         <div className={styles['form-buttons']}>
           {!isFirstStep && (

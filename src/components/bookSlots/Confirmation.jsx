@@ -31,7 +31,9 @@ const Confirmation = () => {
           ? 'Please Login before confirming!'
           : 'Please confirm the slots you have selected'}
       </h3>
-      {selectedSlots.length && currentUser ? <ul>{dateTime}</ul> : null}
+      {selectedSlots.length && currentUser ? (
+        <ul className={styles.ul}>{dateTime}</ul>
+      ) : null}
     </div>
   );
 };
